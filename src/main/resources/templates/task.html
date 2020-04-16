@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="header.html :: header"></div>
+
+<span th:if="${taskModelList.size() &lt;= 0}">No tasks left to do</span>
+<table>
+    <tr>
+        <th>Tasks</th>
+        <th>Edit task</th>
+    </tr>
+
+    <tr  th:each="task : ${taskModelList}">
+        <td><a th:href="@{tasks/{id}(id = ${task.id})}"><span th:text="${task.toString()}"></span></a></td>
+        <td><a th:href="@{tasks/edit/{id}(id = ${task.id})}">Edit existing task</a></td>
+    </tr>
+</table>
+
+<span><a href="/tasks/new">Voeg een nieuwe taak toe</a></span>
+
+
+</body>
+</html>
+
+<style>
+    body{
+        background: #4CAF50;
+    }
+
+    table{
+        margin-left: 35%;
+        margin-bottom: 2%;
+    }
+
+    th,td{
+        padding: 0 2% 5% 0;
+    }
+</style>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+
+<body>
+    <nav th:fragment="header">
+        <ul>
+            <li><a class="current" href="/tasks">Home</a></li>
+            <li><a href="/tasks/new">Create task</a></li>
+        </ul>
+    </nav>
+
+
+
+</body>
+<style>
+    nav ul {
+        display: flex;
+        justify-content: center;
+        background-color: #333;
+        font-family: sans-serif;
+    }
+
+    nav li {
+        flex-grow: 1;
+        list-style-type: none;
+        font-size: 120%;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        color: #f2f2f2;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .current {
+        background-color: green;
+        font-weight: bold;
+    }
+
+    @media screen and (max-width: 800px){
+        nav ul {
+            flex-direction:column;
+        }
+    }
+</style>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Task detail</title>
+</head>
+<body>
+<div th:insert="header.html :: header"></div>
+
+<div th:if="${detailtask == null}">
+    Task not found!
+</div>
+
+<div th:if="${detailtask != null}">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due date</th>
+
+        </tr>
+
+        <tr>
+            <td th:text="${detailtask.nameTask}"></td>
+            <td th:text="${detailtask.description}"></td>
+            <td th:text="${detailtask.getLocalDateTime()}"></td>
+        </tr>
+    </table>
+
+    <div>
+       <!-- <a th:href="@{/{id}(id = ${detailtask.id})/sub/create}">Voeg subtask toe</a> !-->
+        <a th:href="@{'/tasks/' + ${detailtask.id} + '/sub/create'}">Voeg subtask toe</a>
+    </div>
+</div>
+
+<div th:if="${subtasks == null}">
+    No subtasks!
+</div>
+
+
+
+<div th:if="${subtasks != null}">
+    <table>
+        <tr>
+            <th>Subtask Title</th>
+            <th>Subtask Description</th>
+
+        </tr>
+
+        <tr th:each="subtask : ${subtasks}">
+            <td th:text="${subtask.nameTask}"></td>
+            <td th:text="${subtask.description}"></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>
