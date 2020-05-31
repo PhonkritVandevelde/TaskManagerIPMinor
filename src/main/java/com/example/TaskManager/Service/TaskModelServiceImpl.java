@@ -47,11 +47,13 @@ public class TaskModelServiceImpl implements TaskModelService {
     }
 
     @Override
-    public TaskModelDTO getTaskmetId(long id) { //TODO: iets fout waardoor
+    public TaskModelDTO getTaskmetId(long id) {
 
-        TaskModelDTO res = new TaskModelDTO();
+        TaskModelDTO res = null;
+
         for (TaskModel model: taskModelRepo.findAll()){
             if (model.getId() == id){
+                res = new TaskModelDTO();
                 res.setSubtasks(model.getSubtasks());
                 res.setNameTask(model.getNameTask());
                 res.setLocalDateTime(model.getLocalDateTime());

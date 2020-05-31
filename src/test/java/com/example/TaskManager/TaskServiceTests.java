@@ -69,8 +69,12 @@ public class TaskServiceTests {
         taskModelService.setVolgendeID(taskModelDTO);
         taskModelDTO.setDescription("testmodel");
         taskModelDTO.setNameTask("testnaam");
-        taskModelDTO.setLocalDateTime(LocalDateTime.now());
+        LocalDateTime localDateTime = LocalDateTime.of(2020,10,10,10,10);
+
+        taskModelDTO.setLocalDateTime(localDateTime);
         taskModelService.addTaak(taskModelDTO);
         return taskModelDTO;
     }
+
+
 }

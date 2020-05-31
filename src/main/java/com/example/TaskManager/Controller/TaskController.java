@@ -9,6 +9,7 @@ import com.example.TaskManager.Service.TaskModelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,6 +17,8 @@ import java.util.List;
 
 @Controller
 public class TaskController {
+
+    //TODO: ERRORS OPVANGEN IN FORMS
 
     @Autowired
     private TaskModelService taskService;
@@ -34,10 +37,16 @@ public class TaskController {
 
     @GetMapping("tasks/{id}")
     public String getTaskDetail(@PathVariable(name = "id") long id, Model model){
+
         model.addAttribute("id",id);
         TaskModelDTO dto = taskService.getTaskmetId(id);
-        model.addAttribute("detailtask", dto);
-        model.addAttribute("subtasks", dto.getSubtasks());
+        if (dto != null){
+            model.addAttribute("detailtask", dto);
+            model.addAttribute("subtasks", dto.getSubtasks());
+        } else {
+            model.addAttribute("detailtask", null);
+        }
+
         return "taskdetail";
     }
 
@@ -62,20 +71,18 @@ public class TaskController {
         return "editform";
     }
 
-    @PostMapping("tasks/edittask/{id}")
-    public String editTask(@PathVariable(name="id") Integer id,
-                           @Valid @ModelAttribute TaskModelDTO taskModelDTO){
 
-        TaskModelDTO taskmetId = taskService.getTaskmetId(id);
 
-        taskmetId.setDescription(taskModelDTO.getDescription());
-        taskmetId.setId(taskModelDTO.getId());
-        taskmetId.setLocalDateTime(taskModelDTO.getLocalDateTime());
-        taskmetId.setNameTask(taskModelDTO.getNameTask());
-
-        taskService.updateTask(taskmetId, id);
-
-        return "redirect:/tasks/" + id;
+    @PostMapping("tasks/edit/{id}")
+    public String editTask(@PathVariable(name = "id") long id, @ModelAttribute @Valid TaskModelDTO taskDTO, BindingResult bindingResult, Model model)
+    {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("id",id);
+            model.addAttribute("getSelectedTask",taskService.getTaskmetId(id));
+            return "editTask";
+        }
+        this.taskService.editTask(taskDTO, id);
+        return "redirect:/tasks/{id}";
     }
 
     @GetMapping("tasks/{id}/sub/create")

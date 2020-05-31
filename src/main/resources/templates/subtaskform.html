@@ -12,8 +12,9 @@
 
 <div class="login-page">
     <div class="form">
-        <span>Voeg een nieuwe taak toe</span>
+        <span th:text="#{newtask}"></span>
         <form th:action="@{/tasks/{id}(id = ${id})}" th:object="${subtask}" class="login-form" method="post">
+            <p th:text="${#fields.globalErrors()}"></p>
             <input type="text" name="nameTask" id="nameTask" th:field="*{nameTask}" placeholder="title"/>
             <input type="text" name="description" id="description" th:field="*{description}" placeholder="description"/>
             <input type="submit" value="submit">

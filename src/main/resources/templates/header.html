@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title}"></title>
 
 </head>
 
@@ -10,8 +10,11 @@
 <body>
     <nav th:fragment="header">
         <ul>
-            <li><a class="current" href="/tasks">Home</a></li>
-            <li><a href="/tasks/new">Create task</a></li>
+            <li><a class="current" href="/tasks" th:text="#{home}"></a></li>
+            <li><a href="/tasks/new" th:text="#{createtask}"></a></li>
+            <li><a href="/?lang=nl" th:text="#{lang.nl}"></a></li>
+            <li><a href="/?lang=en" th:text="#{lang.eng}"></a></li>
+
         </ul>
     </nav>
 

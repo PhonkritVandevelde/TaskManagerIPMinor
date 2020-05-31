@@ -2,15 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title}"></title>
 </head>
 <body>
 <nav th:insert="header.html :: header"></nav>
 
 <div class="login-page">
     <div class="form">
-        <span>Voeg een nieuwe taak toe</span> <!-- th:field mogen geen functies bevatten -->
+        <span th:text="#{newtask}"></span> <!-- th:field mogen geen functies bevatten -->
         <form  action="/tasks/new/" th:object="${taskModelDTO}" class="login-form" method="post">
+            <p th:text="${#fields.globalErrors()}"></p>
             <input type="text" name="nameTask" id="nameTask" th:field="*{nameTask}" placeholder="title"/>
             <input type="text" name="description" id="description" th:field="*{description}" placeholder="description"/>
             <input type="datetime-local" name="localDateTime" id="localDateTime" th:field="*{localDateTime}" placeholder="YYYY-MM-DD"/>
